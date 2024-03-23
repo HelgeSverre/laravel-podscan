@@ -1,6 +1,6 @@
 <p align="center"><img src="./art/header.png"></p>
 
-# Laravel Client for the Podscan.fm api
+# Laravel Client for the Podscan.fm API
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/helgesverre/laravel-podscan.svg?style=flat-square)](https://packagist.org/packages/helgesverre/laravel-podscan)
 [![Total Downloads](https://img.shields.io/packagist/dt/helgesverre/laravel-podscan.svg?style=flat-square)](https://packagist.org/packages/helgesverre/laravel-podscan)
@@ -52,6 +52,50 @@ Podscan::teams();
 
 ## Resources
 
+### Alerts
+
+```php
+Podscan::alerts()->list();
+Podscan::alerts()->create();
+Podscan::alerts()->get();
+Podscan::alerts()->update();
+Podscan::alerts()->delete();
+Podscan::alerts()->mentions();
+Podscan::alerts()->mention();
+```
+
+### Categories
+
+```php  
+Podscan::categories()->list();
+```
+
+### Episodes
+
+```php
+Podscan::episodes()->search();
+Podscan::episodes()->paginatedSearch();
+Podscan::episodes()->recent();
+Podscan::episodes()->get();
+```
+
+### Podcasts
+
+```php
+Podscan::podcasts()->suggest();
+Podscan::podcasts()->search();
+Podscan::podcasts()->paginatedSearch();
+Podscan::podcasts()->get();
+Podscan::podcasts()->episodes();
+Podscan::podcasts()->paginatedEpisodes();
+```
+
+### Teams
+
+```php
+Podscan::teams()->list();
+```
+
 ## Testing
 
 ```bash
@@ -60,11 +104,13 @@ composer test
 composer analyse src
 ```
 
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 ## Disclaimer
 
-[Podscan](https://podscan.fm/) and the Podscan logo are trademarks of [Arvid Kahl](https://twitter.com/arvidkahl). This package is not
+[Podscan](https://podscan.fm/) and the Podscan logo are trademarks of [Arvid Kahl](https://twitter.com/arvidkahl). This
+package is not
 affiliated with Podscan or Arvid Kahl in any way.
