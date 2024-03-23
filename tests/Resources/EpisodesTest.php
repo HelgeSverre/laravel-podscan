@@ -50,6 +50,42 @@ it('calls the episodesSearch method in the Episodes resource', function () {
         ]);
 });
 
+it('calls the paginatedSearch method in the Episodes resource', function () {
+    Saloon::fake([
+        EpisodesSearch::class => MockResponse::fixture('episodes.episodesSearch'),
+    ]);
+
+    $paginator = $this->podscan->episodes()->paginatedSearch(
+        perPage: 5,
+        orderBy: 'posted_at',
+        orderDir: 'asc'
+    );
+
+    $paginator->current();
+
+    Saloon::assertSent(EpisodesSearch::class);
+
+    expect($paginator->getTotalResults())->toBe(5)
+        ->and($paginator->getCurrentPage())->toBe(0)
+        ->and($paginator->items())->toBeIterable()
+        ->and(iterator_to_array($paginator->items())[0])->toHaveKeys([
+            'episode_id',
+            'episode_guid',
+            'episode_title',
+            'episode_url',
+            'episode_audio_url',
+            'episode_duration',
+            'episode_word_count',
+            'created_at',
+            'updated_at',
+            'posted_at',
+            'episode_transcript',
+            'episode_description',
+            'podcast',
+        ]);
+
+});
+
 it('calls the recent method in the Episodes resource', function () {
     Saloon::fake([
         EpisodesRecent::class => MockResponse::fixture('episodes.episodesRecent'),

@@ -2,16 +2,20 @@
 
 namespace HelgeSverre\Podscan\Requests\Alerts;
 
+use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Traits\Body\HasJsonBody;
 
 /**
  * alerts.update
  *
  * Updates the settings of an alert.
  */
-class AlertsUpdate extends Request
+class AlertsUpdate extends Request implements HasBody
 {
+    use HasJsonBody;
+
     protected Method $method = Method::PUT;
 
     public function resolveEndpoint(): string
@@ -29,9 +33,7 @@ class AlertsUpdate extends Request
      * @param  string  $notificationEmail  An email address to send a notification to when a new mention is found. Defaults to your account's email or the team's email if set.
      * @param  bool  $notificationSummaryEnabled  Whether to send a summary of the alert's mentions instead of one email per mention. `true` or `false`.
      * @param  mixed  $notificationSummaryFrequency  How often to send a summary of the alert's mentions. `daily`, `weekly`, or `monthly`.
-     * @param  bool  $webhookEnabled  Whether to send a POST request to a URL when a new mention is found. `true` or `false`.
      * @param  mixed  $webhookUrl  A URL to send a POST request to when a new mention is found. The request will contain a JSON object with the mention's details.
-     * @param  bool  $promptQuestionEnabled  Whether to ask an AI-answered question of teh transcript when a new mention is found. `true` or `false`. Defaults to `false`.
      * @param  mixed  $promptQuestion  The Yes/No question to ask the AI when a new mention is found. Only used if `prompt_question_enabled` is `true`.
      * @param  mixed  $restrictToCategoryIds  A comma-separated list of category IDs to restrict the alert to. If not set, the alert will scan all categories.
      * @param  mixed  $restrictToPodcastIds  A comma-separated list of podcast IDs to restrict the alert to. If not set, the alert will scan all podcasts.
@@ -42,15 +44,13 @@ class AlertsUpdate extends Request
         protected string $alertName,
         protected array $promptFilters,
         protected bool $alertEnabled,
-        protected string $notificationEmail,
-        protected bool $notificationSummaryEnabled,
-        protected mixed $notificationSummaryFrequency,
-        protected bool $webhookEnabled,
-        protected mixed $webhookUrl,
-        protected bool $promptQuestionEnabled,
-        protected mixed $promptQuestion,
-        protected mixed $restrictToCategoryIds,
-        protected mixed $restrictToPodcastIds,
+        protected ?string $notificationEmail = null,
+        protected ?bool $notificationSummaryEnabled = null,
+        protected ?string $notificationSummaryFrequency = null,
+        protected ?string $webhookUrl = null,
+        protected ?string $promptQuestion = null,
+        protected ?array $restrictToCategoryIds = null,
+        protected ?array $restrictToPodcastIds = null,
     ) {
     }
 
@@ -60,15 +60,19 @@ class AlertsUpdate extends Request
             'alert_name' => $this->alertName,
             'prompt_filters' => $this->promptFilters,
             'alert_enabled' => $this->alertEnabled,
+
             'notification_email' => $this->notificationEmail,
             'notification_summary_enabled' => $this->notificationSummaryEnabled,
             'notification_summary_frequency' => $this->notificationSummaryFrequency,
-            'webhook_enabled' => $this->webhookEnabled,
+
+            'webhook_enabled' => $this->webhookUrl !== null,
             'webhook_url' => $this->webhookUrl,
-            'prompt_question_enabled' => $this->promptQuestionEnabled,
+
+            'prompt_question_enabled' => $this->promptQuestion !== null,
             'prompt_question' => $this->promptQuestion,
-            'restrict_to_category_ids' => $this->restrictToCategoryIds,
-            'restrict_to_podcast_ids' => $this->restrictToPodcastIds,
+
+            'restrict_to_category_ids' => $this->restrictToCategoryIds != null ? implode(',', $this->restrictToCategoryIds) : null,
+            'restrict_to_podcast_ids' => $this->restrictToPodcastIds != null ? implode(',', $this->restrictToPodcastIds) : null,
         ]);
     }
 }

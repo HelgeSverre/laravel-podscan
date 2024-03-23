@@ -8,6 +8,7 @@ use HelgeSverre\Podscan\Requests\Podcasts\PodcastsShow;
 use HelgeSverre\Podscan\Requests\Podcasts\PodcastsSuggest;
 use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
 class Podcasts extends BaseResource
 {
@@ -30,6 +31,22 @@ class Podcasts extends BaseResource
         ));
     }
 
+    public function paginatedSearch(
+        ?string $query = null,
+        ?int $perPage = null,
+        ?string $orderBy = null,
+        ?string $orderDir = null,
+    ): Paginator {
+        $request = new PodcastsSearch(
+            q: $query,
+            perPage: $perPage,
+            orderBy: $orderBy,
+            orderDir: $orderDir,
+        );
+
+        return $request->paginate($this->connector);
+    }
+
     /**
      * @param  string  $podcast  The ID of the podcast
      */
@@ -44,5 +61,15 @@ class Podcasts extends BaseResource
     public function episodes(string $podcast): Response
     {
         return $this->connector->send(new PodcastsEpisodesIndex($podcast));
+    }
+
+    /**
+     * @param  string  $podcast  The ID of the podcast
+     */
+    public function paginatedEpisodes(string $podcast): Paginator
+    {
+        $request = new PodcastsEpisodesIndex($podcast);
+
+        return $request->paginate($this->connector);
     }
 }

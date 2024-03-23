@@ -65,6 +65,39 @@ it('calls the search method in the Podcasts resource', function () {
         ]);
 });
 
+it('calls the paginatedSearch method in the Podcasts resource', function () {
+    Saloon::fake([
+        PodcastsSearch::class => MockResponse::fixture('podcasts.paginatedPodcastsSearch'),
+    ]);
+
+    $paginator = $this->podscan->podcasts()->paginatedSearch(
+        query: '"the bootstrapped founder"',
+        perPage: 10,
+        orderBy: 'episode_count',
+        orderDir: 'asc'
+    );
+
+    $paginator->current();
+
+    Saloon::assertSent(PodcastsSearch::class);
+
+    expect($paginator->getTotalResults())->toBe(1)
+        ->and($paginator->getCurrentPage())->toBe(0)
+        ->and($paginator->items())->toBeIterable()
+        ->and(iterator_to_array($paginator->items())[0])->toHaveKeys([
+            'podcast_id',
+            'podcast_guid',
+            'podcast_name',
+            'podcast_url',
+            'rss_url',
+            'episode_count',
+            'last_posted_at',
+            'last_scanned_at',
+            'created_at',
+            'updated_at',
+        ]);
+});
+
 it('calls the podcastsShow method in the Podcasts resource', function () {
     Saloon::fake([
         PodcastsShow::class => MockResponse::fixture('podcasts.podcastsShow'),
@@ -100,8 +133,6 @@ it('calls the episodes method in the Podcasts resource', function () {
         podcast: 'pd_dpmk29neka9ev8nz' // "The Bootstrapped Founder"
     );
 
-    dump($response->json());
-
     Saloon::assertSent(PodcastsEpisodesIndex::class);
 
     expect($response->status())->toBe(200)
@@ -129,5 +160,38 @@ it('calls the episodes method in the Podcasts resource', function () {
             'podcast_id',
             'podcast_name',
             'podcast_url',
+        ]);
+});
+
+it('calls the episodes method with pagination in the Podcasts resource', function () {
+    Saloon::fake([
+        PodcastsEpisodesIndex::class => MockResponse::fixture('podcasts.podcastsEpisodesIndexPagination'),
+    ]);
+
+    $paginator = $this->podscan->podcasts()->paginatedEpisodes(
+        podcast: 'pd_dpmk29neka9ev8nz' // "The Bootstrapped Founder"
+    );
+
+    $paginator->current();
+
+    Saloon::assertSent(PodcastsEpisodesIndex::class);
+
+    expect($paginator->getTotalResults())->toBe(25)
+        ->and($paginator->getCurrentPage())->toBe(0)
+        ->and($paginator->items())->toBeIterable()
+        ->and(iterator_to_array($paginator->items())[0])->toHaveKeys([
+            'episode_id',
+            'episode_guid',
+            'episode_title',
+            'episode_url',
+            'episode_audio_url',
+            'episode_duration',
+            'episode_word_count',
+            'created_at',
+            'updated_at',
+            'posted_at',
+            'episode_transcript',
+            'episode_description',
+            'podcast',
         ]);
 });

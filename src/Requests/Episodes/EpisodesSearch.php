@@ -3,7 +3,13 @@
 namespace HelgeSverre\Podscan\Requests\Episodes;
 
 use Saloon\Enums\Method;
+use Saloon\Http\Connector;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Contracts\HasRequestPagination;
+use Saloon\PaginationPlugin\Contracts\Paginatable;
+use Saloon\PaginationPlugin\PagedPaginator;
+use Saloon\PaginationPlugin\Paginator;
 
 /**
  * episodes.search
@@ -21,7 +27,7 @@ use Saloon\Http\Request;
  * Inside the query, use `*` as a wildcard for any character
  * sequence, and `"` to search for an exact phrase.
  */
-class EpisodesSearch extends Request
+class EpisodesSearch extends Request implements HasRequestPagination, Paginatable
 {
     protected Method $method = Method::GET;
 
@@ -46,5 +52,21 @@ class EpisodesSearch extends Request
         protected ?string $orderBy = null,
         protected ?string $orderDir = null,
     ) {
+    }
+
+    public function paginate(Connector $connector): Paginator
+    {
+        return new class(connector: $connector, request: $this) extends PagedPaginator
+        {
+            protected function isLastPage(Response $response): bool
+            {
+                return $response->json('current_page') == $response->json('last_page');
+            }
+
+            protected function getPageItems(Response $response, Request $request): array
+            {
+                return $response->json('episodes');
+            }
+        };
     }
 }

@@ -8,6 +8,7 @@ use HelgeSverre\Podscan\Requests\Episodes\EpisodesSearch;
 use HelgeSverre\Podscan\Requests\Episodes\EpisodesShow;
 use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Paginator;
 
 class Episodes extends BaseResource
 {
@@ -23,6 +24,22 @@ class Episodes extends BaseResource
             orderBy: $orderBy,
             orderDir: $orderDir,
         ));
+    }
+
+    public function paginatedSearch(
+        ?string $query = null,
+        ?int $perPage = null,
+        ?string $orderBy = null,
+        ?string $orderDir = null,
+    ): Paginator {
+        $request = new EpisodesSearch(
+            q: $query,
+            perPage: $perPage,
+            orderBy: $orderBy,
+            orderDir: $orderDir,
+        );
+
+        return $request->paginate($this->connector);
     }
 
     // limit is the number of episodes to return

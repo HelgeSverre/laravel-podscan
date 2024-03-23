@@ -1,0 +1,20 @@
+{
+    "statusCode": 406,
+    "headers": {
+        "Date": "Sat, 23 Mar 2024 15:04:28 GMT",
+        "Content-Type": "application\/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Cache-Control": "no-cache, private",
+        "x-ratelimit-limit": "100",
+        "x-ratelimit-remaining": "73",
+        "access-control-allow-origin": "*",
+        "CF-Cache-Status": "DYNAMIC",
+        "Report-To": "{\"endpoints\":[{\"url\":\"https:\\\/\\\/a.nel.cloudflare.com\\\/report\\\/v4?s=7iQO1i8xEi%2Bb7tcsu1NINHOwxmdJordc4CUzwJu%2FkScLg8vecmSWjDkH2t7YAjAdlRr%2FuEmct1dmQcgf7w42BwvHMcDMWFWDhdqO5Ce1jBAEk%2F0Dqiw54SdZnmIdkMdibeEMvESAHaXa\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+        "NEL": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+        "Server": "cloudflare",
+        "CF-RAY": "868f5065fd315690-OSL",
+        "alt-svc": "h3=\":443\"; ma=86400"
+    },
+    "data": "{\"error\":\"Invalid mention id\"}"
+}

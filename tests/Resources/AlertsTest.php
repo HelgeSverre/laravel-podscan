@@ -27,8 +27,6 @@ it('calls the list method in the Alerts resource', function () {
         team: 'te_o3l9ngj8y2z4wa2m',
     );
 
-    dump($response->json());
-
     Saloon::assertSent(AlertsIndex::class);
 
     expect($response->status())->toBe(200)
@@ -53,8 +51,6 @@ it('calls the create method in the Alerts resource', function () {
         alertEnabled: true,
         restrictToPodcastIds: ['pd_dpmk29neka9ev8nz']
     );
-
-    dump($response->json());
 
     Saloon::assertSent(AlertsCreate::class);
 
@@ -88,13 +84,36 @@ it('calls the get method in the Alerts resource', function () {
     ]);
 
     $response = $this->podscan->alerts()->get(
-        team: 0,
-        alert: 0
+        team: 'te_o3l9ngj8y2z4wa2m',
+        alert: 'al_k432x7glbz9jvbmp'
     );
 
     Saloon::assertSent(AlertsShow::class);
 
-    expect($response->status())->toBe(200);
+    expect($response->status())->toBe(200)
+        ->and($response->json())->toBeArray()
+        ->and($response->json())->toHaveKeys([
+            'alert',
+        ])
+        ->and($response->json('alert'))->toHaveKeys([
+            'alert_id',
+            'alert_name',
+            'prompt_filters',
+            'alert_enabled',
+            'notification_email',
+            'notification_summary_enabled',
+            'notification_summary_frequency',
+            'webhook_enabled',
+            'webhook_url',
+            'prompt_question_enabled',
+            'prompt_question',
+            'restrict_to_category_ids',
+            'restrict_to_podcast_ids',
+            'mention_count',
+            'team_id',
+            'created_at',
+            'updated_at',
+        ]);
 });
 
 it('calls the update method in the Alerts resource', function () {
@@ -103,25 +122,19 @@ it('calls the update method in the Alerts resource', function () {
     ]);
 
     $response = $this->podscan->alerts()->update(
-        team: 0,
-        alert: 0,
-        alertName: 0,
-        promptFilters: 0,
-        alertEnabled: 0,
-        notificationEmail: 0,
-        notificationSummaryEnabled: 0,
-        notificationSummaryFrequency: 0,
-        webhookEnabled: 0,
-        webhookUrl: 0,
-        promptQuestionEnabled: 0,
-        promptQuestion: 0,
-        restrictToCategoryIds: 0,
-        restrictToPodcastIds: 0
+        team: 'te_o3l9ngj8y2z4wa2m',
+        alert: 'al_k432x7glbz9jvbmp',
+        alertName: 'My own name 2',
+        promptFilters: [
+            '"helge sverre"',
+        ],
     );
 
     Saloon::assertSent(AlertsUpdate::class);
 
-    expect($response->status())->toBe(200);
+    expect($response->status())->toBe(200)
+        ->and($response->json('status'))->toEqual('updated')
+        ->and($response->json('alert'))->toBeArray();
 });
 
 it('calls the delete method in the Alerts resource', function () {
@@ -130,13 +143,14 @@ it('calls the delete method in the Alerts resource', function () {
     ]);
 
     $response = $this->podscan->alerts()->delete(
-        team: 0,
-        alert: 0
+        team: 'te_o3l9ngj8y2z4wa2m',
+        alert: 'al_k432x7glbz9jvbmp'
     );
 
     Saloon::assertSent(AlertsDelete::class);
 
-    expect($response->status())->toBe(200);
+    expect($response->status())->toBe(200)
+        ->and($response->json('status'))->toEqual('deleted');
 });
 
 it('calls the mentions method in the Alerts resource', function () {
@@ -145,13 +159,19 @@ it('calls the mentions method in the Alerts resource', function () {
     ]);
 
     $response = $this->podscan->alerts()->mentions(
-        team: 0,
-        alert: 0
+        team: 'te_o3l9ngj8y2z4wa2m',
+        alert: 'al_k432x7glbz9jvbmp'
     );
 
     Saloon::assertSent(AlertsMentionsIndex::class);
 
-    expect($response->status())->toBe(200);
+    expect($response->status())->toBe(200)
+        ->and($response->json())->toBeArray()
+        ->and($response->json())->toHaveKeys([
+            'mentions',
+            'alert',
+            'pagination',
+        ]);
 });
 
 it('calls the mention method in the Alerts resource', function () {
@@ -160,12 +180,13 @@ it('calls the mention method in the Alerts resource', function () {
     ]);
 
     $response = $this->podscan->alerts()->mention(
-        team: 0,
-        alert: 0,
-        mention: 0
+        team: 'te_o3l9ngj8y2z4wa2m',
+        alert: 'al_k432x7glbz9jvbmp',
+        mention: 'invalid'
     );
 
     Saloon::assertSent(AlertsMentionsShow::class);
 
-    expect($response->status())->toBe(200);
+    expect($response->status())->toBe(406)
+        ->and($response->json('error'))->toEqual('Invalid mention id');
 });
