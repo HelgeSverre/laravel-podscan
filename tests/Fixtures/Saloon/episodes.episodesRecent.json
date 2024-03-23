@@ -1,0 +1,24 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Sat, 23 Mar 2024 12:29:21 GMT",
+        "Content-Type": "application\/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "vary": "Accept-Encoding",
+        "Cache-Control": "no-cache, private",
+        "x-ratelimit-limit": "100",
+        "x-ratelimit-remaining": "83",
+        "access-control-allow-origin": "*",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "CF-Cache-Status": "DYNAMIC",
+        "Report-To": "{\"endpoints\":[{\"url\":\"https:\\\/\\\/a.nel.cloudflare.com\\\/report\\\/v4?s=fZbgfdIHxU8Ofg439X2ZRp7f5%2FuMJCfftA5JbFWoaEj8A8ie9bksaUaTwCk%2BQIO7j9rZ2ttUehaVvfnaKfpTjcV6C4KDLTG000Dm5L1kfLRY19kbndmeFmYQhoNIJNQwASxJb5jmlHui\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+        "NEL": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+        "Server": "cloudflare",
+        "CF-RAY": "868e6d30ff7fb50b-OSL",
+        "alt-svc": "h3=\":443\"; ma=86400"
+    },
+    "data": "{\"episodes\":[{\"episode_id\":\"ep_y7q4r8wlwbgrzpn9\",\"episode_guid\":null,\"episode_title\":\"Pop Cultures Pull on our Kids\",\"episode_url\":\"https:\\\/\\\/www.generations.org\\\/programs\\\/3081\",\"episode_audio_url\":\"https:\\\/\\\/d3uf62dqgc3yw6.cloudfront.net\\\/uploads\\\/program\\\/image\\\/3081\\\/omid-armin-tF-wSmez9ag-unsplash.jpg\",\"episode_duration\":0,\"episode_word_count\":0,\"created_at\":\"2024-03-01T09:24:15+00:00\",\"updated_at\":\"2024-03-01T09:24:16+00:00\",\"posted_at\":\"2024-03-30T13:00:00+00:00\",\"episode_transcript\":null,\"episode_description\":\"<p>\\u201cShall my daughter attend a Taylor Swift conference\\nwith the pastor\\u2019s daughter and the rest of the girls at the\\nchurch?\\u201d That\\u2019s the question posed us recently, and we provide\\nthree strategies by which to overcome the overwhelming power of the\\nzeitgeist in the modern age. The underestimation of the demonic\\npowers let loose in pop culture signifies a lack of watchfulness and\\nspiritual power.\\u00a0<\\\/p>\\n\\n<p>\\nThis\\nprogram includes:<\\\/p>\\n\\n\\n\\n\\n\\n\\n\\n<p>\\n1.\\nThe World View in 5 Minutes with Adam McManus (Afghan refugees\\nfind Christ amidst uncertainty; Wildfire in Texas Panhandle largest\\nin state history; Christian school counselor, opposed to perversion,\\ngets right to appeal)<\\\/p>\\n\\n\\n\\n<p>\\n2.\\nGenerations with Kevin Swanson<\\\/p>\",\"podcast\":{\"podcast_id\":\"pd_6kewm9d4r6p9a847\",\"podcast_name\":\"The Generations Radio Program\",\"podcast_url\":\"https:\\\/\\\/www.generations.org\\\/programs\"}},{\"episode_id\":\"ep_eyq2ajq3ewlrmzwn\",\"episode_guid\":null,\"episode_title\":\"Watch on YouTube\",\"episode_url\":\"https:\\\/\\\/www.bethanychapel.com\\\/sermons\\\/2019\\\/10\\\/16\\\/you-can-now-watch-our-sermons-on-youtube\",\"episode_audio_url\":null,\"episode_duration\":0,\"episode_word_count\":0,\"created_at\":\"2024-02-09T01:04:14+00:00\",\"updated_at\":\"2024-02-09T01:04:14+00:00\",\"posted_at\":\"2024-03-26T18:30:00+00:00\",\"episode_transcript\":null,\"episode_description\":\"<p>See <\\\/p><p><a href=\\\"https:\\\/\\\/www.youtube.com\\\/c\\\/BethanyChapelofCalgary\\\/videos\\\" target=\\\"_blank\\\">http:\\\/\\\/www.youtube.com\\\/c\\\/BethanyChapelofCalgary<\\\/a><\\\/p>\",\"podcast\":{\"podcast_id\":\"pd_exk67jggdy6jm8lr\",\"podcast_name\":\"Sermons - Bethany Chapel\",\"podcast_url\":\"https:\\\/\\\/www.bethanychapel.com\\\/sermons\\\/\"}}]}"
+}
